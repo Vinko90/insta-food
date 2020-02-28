@@ -13,27 +13,27 @@ namespace InstaFood.DataAccess.Data.Repository.IRepository
 {
     /// <summary>
     /// Repository pattern interface.
-    /// Contains all methods definition to Add, Get and Remove items
+    /// Contains all methods definition to Add, Get and Remove objects
     /// from a database context.
     /// </summary>
     public interface IRepository<T> where T : class
     {
         /// <summary>
-        /// Get an item based on its primary key
+        /// Select an object based on its primary key
         /// </summary>
         /// <returns>
-        /// Return a generic item
+        /// Return a generic object
         /// </returns>
         T Get(int id);
 
         /// <summary>
-        /// Get all the items
+        /// Select all objects
         /// </summary>
         /// <param name="filter">Specify a filter</param>
         /// <param name="orderBy">Specify items collection order</param>
         /// <param name="includeProperties">Specify property</param>
         /// <returns>
-        /// Return a collection of items
+        /// Return a collection of objects
         /// </returns>
         IEnumerable<T> GetAll(
             Expression<Func<T, bool>> filter = null,
@@ -42,12 +42,12 @@ namespace InstaFood.DataAccess.Data.Repository.IRepository
             );
 
         /// <summary>
-        /// Get the first found item or return default
+        /// Get the first found object or return default value
         /// </summary>
         /// <param name="filter">Specify a filter</param>
         /// <param name="includeProperties">Specify property</param>
         /// <returns>
-        /// Return an item or default
+        /// Return an object or default value
         /// </returns>
         T GetFirstOrDefault(
             Expression<Func<T, bool>> filter = null,
@@ -55,19 +55,19 @@ namespace InstaFood.DataAccess.Data.Repository.IRepository
             );
 
         /// <summary>
-        /// Add an item to the database context
+        /// Insert an object to the database context
         /// </summary>
-        /// <param name="entity">A generic item</param>
+        /// <param name="entity">A generic object</param>
         void Add(T entity);
 
         /// <summary>
-        /// Remove an item from the database context based on the primary key
+        /// Remove an object from the database context based on the primary key
         /// </summary>
-        /// <param name="id">Item primary key</param>
+        /// <param name="id">Object primary key</param>
         void Remove(int id);
 
         /// <summary>
-        /// Remove the item from the database context
+        /// Remove the object from the database context
         /// </summary>
         /// <param name="entity">Entity to be removed</param>
         void Remove(T entity);
