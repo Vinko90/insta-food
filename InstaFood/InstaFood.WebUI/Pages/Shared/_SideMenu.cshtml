@@ -1,8 +1,8 @@
 ﻿<aside class="main-sidebar sidebar-dark-primary elevation-4">
     
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
-        <img src="dist/img/AdminLTELogo.png"
+    <a class="brand-link" asp-area="" asp-page="/Index">
+        <img src="~/dist/img/logo.jpg"
              alt="InstaFood"
              class="brand-image img-circle elevation-3"
              style="opacity: .8">
@@ -15,7 +15,7 @@
         <!-- Sidebar user (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-                <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                <img src="~/dist/img/user_default.png" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
                 <a href="#" class="d-block">WarOfDevil</a>
@@ -25,51 +25,70 @@
         <!-- Sidebar Menu -->
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                <!-- Add icons to the links using the .nav-icon class
-                     with font-awesome or any other icon font library -->
+                <!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
+
+                <li class="nav-item">
+                    <a class="nav-link" asp-area="" asp-page="/Index">
+                        <i class="nav-icon fas fa-home"></i>
+                        <p>Home</p>
+                    </a>
+                </li>
+
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <i class="nav-icon fas fa-user-shield"></i>
                         <p>
-                            Dashboard
+                            Administration
                             <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="index.html" class="nav-link">
+                            <a class="nav-link" asp-page="/Admin/Category/Index">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Dashboard v1</p>
+                                <p>Category</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="index2.html" class="nav-link">
+                            <a class="nav-link" asp-page="/Admin/FoodType/Index">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Dashboard v2</p>
+                                <p>Food Type</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-page="/Admin/MenuItem/Index">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Menu Item</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-page="/Admin/User/Index">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Users Management</p>
                             </a>
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item">
-                    <a href="../widgets.html" class="nav-link">
-                        <i class="nav-icon fas fa-th"></i>
-                        <p>
-                            Widgets
-                            <span class="right badge badge-danger">New</span>
-                        </p>
-                    </a>
-                </li>
 
-                <li class="nav-header">EXAMPLES</li>
-                <li class="nav-item">
-                    <a href="../calendar.html" class="nav-link">
-                        <i class="nav-icon far fa-calendar-alt"></i>
-                        <p>
-                            Calendar
-                            <span class="badge badge-info right">2</span>
-                        </p>
-                    </a>
-                </li>
+                <!--
+                    <li class="nav-item">
+                        <a href="../widgets.html" class="nav-link">
+                            <i class="nav-icon fas fa-th"></i>
+                            <p>
+                                Widgets
+                                <span class="right badge badge-danger">New</span>
+                            </p>
+                        </a>
+                    </li>
+
+                    <li class="nav-header">EXAMPLES</li>
+                    <li class="nav-item">
+                        <a href="../calendar.html" class="nav-link">
+                            <i class="nav-icon far fa-calendar-alt"></i>
+                            <p>Calendar</p>
+                        </a>
+                    </li>
+                -->
 
             </ul>
         </nav>
