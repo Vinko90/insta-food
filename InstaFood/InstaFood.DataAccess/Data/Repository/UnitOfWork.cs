@@ -12,7 +12,7 @@ namespace InstaFood.DataAccess.Data.Repository
     /// UnitOfWork Repository pattern class implementation.
     /// Implement repositories definition and save action
     /// </summary>
-    class UnitOfWork : IUnitOfWork
+    public class UnitOfWork : IUnitOfWork
     {
         private readonly ApplicationDbContext _db;
 

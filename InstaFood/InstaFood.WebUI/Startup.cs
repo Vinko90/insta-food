@@ -6,6 +6,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using InstaFood.DataAccess;
+using InstaFood.DataAccess.Data.Repository.IRepository;
+using InstaFood.DataAccess.Data.Repository;
 
 namespace InstaFood.WebUI
 {
@@ -26,6 +28,8 @@ namespace InstaFood.WebUI
 					Configuration.GetConnectionString("InstaFoodConnectionString")));
 			services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
 				.AddEntityFrameworkStores<ApplicationDbContext>();
+
+			services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 			services.AddMvc(options => options.EnableEndpointRouting = false)
 				.SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_3_0);
