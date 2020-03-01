@@ -1,7 +1,7 @@
 ﻿@page
-@model InstaFood.WebUI.Pages.Admin.Category.UpsertModel
+@model InstaFood.WebUI.Pages.Admin.FoodType.UpsertModel
 @{
-    ViewData["Title"] = "Edit Category";
+    ViewData["Title"] = "Edit Food";
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
@@ -9,12 +9,12 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                
+
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a asp-area="" asp-page="./Index">Category</a></li>
-                    <li class="breadcrumb-item active">@(Model.CategoryObj.Id != 0 ? "Update" : "Create") Category</li>
+                    <li class="breadcrumb-item"><a asp-area="" asp-page="./Index">Food</a></li>
+                    <li class="breadcrumb-item active">@(Model.FoodTypeObj.Id != 0 ? "Update" : "Create") Food</li>
                 </ol>
             </div>
         </div>
@@ -27,25 +27,20 @@
             <div class="col-md-6">
                 <div class="card card-primary">
                     <div class="card-header">
-                        <h3 class="card-title">@(Model.CategoryObj.Id != 0 ? "Update" : "Create") Category</h3>
+                        <h3 class="card-title">@(Model.FoodTypeObj.Id != 0 ? "Update" : "Create") Food</h3>
                     </div>
                     <form role="form" method="post" asp-action="Upsert">
                         <div class="card-body">
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                            @if (Model.CategoryObj.Id != 0)
+                            @if (Model.FoodTypeObj.Id != 0)
                             {
-                                <input type="hidden" asp-for="CategoryObj.Id" />
+                                <input type="hidden" asp-for="FoodTypeObj.Id" />
                             }
                             <div class="form-group">
-                                <label asp-for="CategoryObj.Name"></label>
-                                <input class="form-control" asp-for="CategoryObj.Name">
-                                <span class="text-danger" asp-validation-for="CategoryObj.Name"></span>
+                                <label asp-for="FoodTypeObj.Name"></label>
+                                <input class="form-control" asp-for="FoodTypeObj.Name">
+                                <span class="text-danger" asp-validation-for="FoodTypeObj.Name"></span>
                             </div>
-                            <div class="form-group">
-                                <label asp-for="CategoryObj.DisplayOrder"></label>
-                                <input class="form-control" asp-for="CategoryObj.DisplayOrder">
-                                <span class="text-danger" asp-validation-for="CategoryObj.DisplayOrder"></span>
-                            </div>  
                         </div>
                         <!-- /.card-body -->
 
@@ -53,7 +48,7 @@
 
                             <a asp-page="./Index" class="btn btn-primary">Back to List</a>
 
-                            @if (Model.CategoryObj.Id != 0)
+                            @if (Model.FoodTypeObj.Id != 0)
                             {
                                 <button type="submit" class="btn btn-info">Update</button>
                             }

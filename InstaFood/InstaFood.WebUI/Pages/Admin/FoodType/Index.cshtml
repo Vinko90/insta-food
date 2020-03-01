@@ -1,7 +1,7 @@
 ﻿@page
-@model InstaFood.WebUI.CategoryModel
+@model InstaFood.WebUI.IndexModel
 @{
-    ViewData["Title"] = "Category Management";
+    ViewData["Title"] = "Food Management";
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 @section Styles{
@@ -14,12 +14,12 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Category Management</h1>
+                <h1>Food Management</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a asp-area="" asp-page="/Index">Home</a></li>
-                    <li class="breadcrumb-item active">Category</li>
+                    <li class="breadcrumb-item active">Food</li>
                 </ol>
             </div>
         </div>
@@ -32,7 +32,7 @@
             <div class="card">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Category Item List</h3>
+                        <h3 class="card-title">Food Item List</h3>
 
                         <div class="card-tools">
                             <a asp-page="Upsert" class="btn btn-block btn-primary">
@@ -43,11 +43,10 @@
                     <!-- /.card-header -->
 
                     <div class="card-body">
-                        <table id="categoryTable" class="table table-bordered table-striped">
+                        <table id="foodTypeTable" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
                                     <th>Name</th>
-                                    <th>Display Order</th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -63,6 +62,7 @@
     </div>
 </section>
 
+
 @section Scripts{
     <script src="~/plugins/datatables/jquery.dataTables.js"></script>
     <script src="~/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
@@ -70,5 +70,5 @@
     <script src="~/plugins/toastr/toastr.min.js"></script>
 
     <!--Custom Script using template data table  -->
-    <script src="~/dist/js/category.js"></script>
+    <script src="~/dist/js/foodType.js"></script>
 }

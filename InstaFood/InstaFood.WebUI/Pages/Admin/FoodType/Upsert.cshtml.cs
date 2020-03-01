@@ -1,15 +1,19 @@
-﻿using InstaFood.DataAccess.Data.Repository.IRepository;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using InstaFood.DataAccess.Data.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace InstaFood.WebUI.Pages.Admin.Category
+namespace InstaFood.WebUI.Pages.Admin.FoodType
 {
     public class UpsertModel : PageModel
     {
         private readonly IUnitOfWork _unitOfWork;
 
         [BindProperty]
-        public Models.Category CategoryObj { get; set; }
+        public Models.FoodType FoodTypeObj { get; set; }
 
         public UpsertModel(IUnitOfWork unitOfWork)
         {
@@ -18,13 +22,13 @@ namespace InstaFood.WebUI.Pages.Admin.Category
 
         public IActionResult OnGet(int? id)
         {
-            CategoryObj = new Models.Category();
+            FoodTypeObj = new Models.FoodType();
 
             if (id != null)
             {
-                CategoryObj = _unitOfWork.Category.GetFirstOrDefault(u => u.Id == id);
+                FoodTypeObj = _unitOfWork.FoodType.GetFirstOrDefault(u => u.Id == id);
 
-                if (CategoryObj == null)
+                if (FoodTypeObj == null)
                 {
                     return NotFound();
                 }
@@ -40,13 +44,13 @@ namespace InstaFood.WebUI.Pages.Admin.Category
                 return Page();
             }
 
-            if (CategoryObj.Id == 0)
+            if (FoodTypeObj.Id == 0)
             {
-                _unitOfWork.Category.Add(CategoryObj);
+                _unitOfWork.FoodType.Add(FoodTypeObj);
             }
             else
             {
-                _unitOfWork.Category.Update(CategoryObj);
+                _unitOfWork.FoodType.Update(FoodTypeObj);
             }
 
             _unitOfWork.Save();
