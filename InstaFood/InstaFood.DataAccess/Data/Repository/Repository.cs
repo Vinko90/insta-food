@@ -78,7 +78,7 @@ namespace InstaFood.DataAccess.Data.Repository
 
             if (filter != null)
             {
-                _ = query.Where(filter);
+                query = query.Where(filter);
             }
 
             //Include properties will be coma separated
@@ -86,7 +86,7 @@ namespace InstaFood.DataAccess.Data.Repository
             {
                 foreach (var property in includeProperties.Split(new char[] { ','}, StringSplitOptions.RemoveEmptyEntries))
                 {
-                    _ = query.Include(property);
+                    query = query.Include(property);
                 }
             }
 
@@ -114,7 +114,7 @@ namespace InstaFood.DataAccess.Data.Repository
 
             if (filter != null)
             {
-                _ = query.Where(filter);
+                query = query.Where(filter);
             }
 
             //Include properties will be coma separated
@@ -122,7 +122,7 @@ namespace InstaFood.DataAccess.Data.Repository
             {
                 foreach (var property in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
                 {
-                    _ = query.Include(property);
+                    query = query.Include(property);
                 }
             }
 

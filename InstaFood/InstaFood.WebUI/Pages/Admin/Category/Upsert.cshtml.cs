@@ -23,7 +23,7 @@ namespace InstaFood.WebUI
 
             if (id != null)
             {
-                CategoryObj = _unitOfWork.Category.GetFirstOrDefault(o => o.Id == id);
+                CategoryObj = _unitOfWork.Category.GetFirstOrDefault(u => u.Id == id);
 
                 if (CategoryObj == null)
                 {

@@ -56,7 +56,7 @@ namespace InstaFood.DataAccess.Data.Repository
             objFromDb.Name = category.Name;
             objFromDb.DisplayOrder = category.DisplayOrder;
 
-            _ = _db.SaveChanges();
+            _db.SaveChanges();
         }
     }
 }

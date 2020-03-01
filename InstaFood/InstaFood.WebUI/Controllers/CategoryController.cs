@@ -19,5 +19,21 @@ namespace InstaFood.WebUI.Controllers
         {
             return Json(new { data = _unitOfWork.Category.GetAll() });
         }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            var objFromDb = _unitOfWork.Category.GetFirstOrDefault(o => o.Id == id);
+
+            if (objFromDb == null)
+            {
+                return Json(new { success = false, message = "Error while deleting" });
+            }
+
+            _unitOfWork.Category.Remove(objFromDb);
+            _unitOfWork.Save();
+
+            return Json(new { success = true, message = "Delete successful" });
+        }
     }
 }

@@ -62,42 +62,10 @@
     </div>
 </section>
 
-<!--cat name
-//display order
-// empty!
-    -->
-
 @section Scripts{
     <script src="~/plugins/datatables/jquery.dataTables.js"></script> 
     <script src="~/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
 
     <!--Custom Script using template data table  -->
-    <script>
-        $(function () {
-            $("#categoryTable").DataTable({
-                "ajax": {
-                    "url": "/api/category",
-                    "type": "GET",
-                    "datatype": "json"
-                },
-                "columns": [
-                    { "data": "name" },
-                    { "data": "displayOrder" },
-                    {
-                        "data": "id",
-                        "render": function (data) {
-                            return ` <div class="text-center">
-                                        <a href="/Admin/Category/upsert?id=${data}" class="btn btn-block btn-info btn-sm">
-                                            <i class="far fa-edit"></i> Edit
-                                        </a>                                       
-                                        <a class="btn btn-block btn-danger btn-sm">
-                                            <i class="far fa-edit"></i> Delete
-                                        </a>
-                                     </div>`;
-                        }, "width": "30%"
-                    }
-                ],
-            });
-        });
-    </script>
+    <script src="~/dist/js/category.js"></script>
 }
