@@ -27,6 +27,11 @@ namespace InstaFood.DataAccess
 		public DbSet<FoodType> FoodType { get; set; }
 
 		/// <summary>
+		/// MenuItem table
+		/// </summary>
+		public DbSet<MenuItem> MenuItem { get; set; }
+
+		/// <summary>
 		/// Default costructor
 		/// </summary>
 		/// <param name="options">Database connection options</param>
