@@ -16,17 +16,11 @@ namespace InstaFood.Models
         /// <summary>
         /// Category Id primary key
         /// </summary>
-        /// <returns>
-        /// Return primary key
-        /// </returns>
         public int Id { get; set; }
 
         /// <summary>
         /// Category name
         /// </summary>
-        /// <returns>
-        /// Return the category name
-        /// </returns>
         [Required]
         [Display(Name="Category Name")]
         public string Name { get; set; }
@@ -34,9 +28,6 @@ namespace InstaFood.Models
         /// <summary>
         /// Category display order
         /// </summary>
-        /// <returns>
-        /// Return display order number
-        /// </returns>
         [Required]
         [Display(Name = "Display Order")]
         public int DisplayOrder { get; set; }
