@@ -32,5 +32,29 @@ function loadList() {
 };
 
 function Delete(url) {
-
+    Swal.fire({
+        title: 'Are you sure you want to Delete?',
+        text: "You will not be able to restore the data!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((willDelete) => {
+        if (willDelete.value) {
+            $.ajax({
+                type: 'DELETE',
+                url: url,
+                success: function (data) {
+                    if (data.success) {
+                        toastr.success(data.message);
+                        dataTable.ajax.reload();
+                    }
+                    else {
+                        toastr.error(data.message);
+                    }
+                }
+            });
+        }
+    });
 }

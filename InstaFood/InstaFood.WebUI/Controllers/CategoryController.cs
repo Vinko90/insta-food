@@ -27,13 +27,13 @@ namespace InstaFood.WebUI.Controllers
 
             if (objFromDb == null)
             {
-                return Json(new { success = false, message = "Error while deleting" });
+                return Json(new { success = false, message = "Error during deleting operation!" });
             }
 
             _unitOfWork.Category.Remove(objFromDb);
             _unitOfWork.Save();
 
-            return Json(new { success = true, message = "Delete successful" });
+            return Json(new { success = true, message = "Successful deleted " + objFromDb.Name });
         }
     }
 }
