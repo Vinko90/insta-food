@@ -20,6 +20,8 @@ namespace InstaFood.DataAccess.Data.Repository
 
         public IFoodTypeRepository FoodType { get; private set; }
 
+        public IMenuItemRepository MenuItem { get; private set; }
+
         /// <summary>
         /// Constructor, initialize all the repository and attach them database context
         /// </summary>
@@ -29,6 +31,7 @@ namespace InstaFood.DataAccess.Data.Repository
             _db = db;
             Category = new CategoryRepository(_db);
             FoodType = new FoodTypeRepository(_db);
+            MenuItem = new MenuItemRepository(_db);
         }
 
         /// <summary>

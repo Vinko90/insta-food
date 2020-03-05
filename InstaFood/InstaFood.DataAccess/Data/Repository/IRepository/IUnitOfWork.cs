@@ -25,6 +25,11 @@ namespace InstaFood.DataAccess.Data.Repository.IRepository
         IFoodTypeRepository FoodType { get; }
 
         /// <summary>
+        /// MenuItem Repository
+        /// </summary>
+        IMenuItemRepository MenuItem { get; }
+
+        /// <summary>
         /// Save changes to database context
         /// </summary>
         void Save();
