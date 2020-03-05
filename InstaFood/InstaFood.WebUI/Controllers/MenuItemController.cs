@@ -22,10 +22,10 @@ namespace InstaFood.WebUI.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            return Json(new { data = _unitOfWork.MenuItem.GetAll(null, null, "Category, FoodType") });
+            return Json(new { data = _unitOfWork.MenuItem.GetAll(null, null, "Category,FoodType") });
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
             try

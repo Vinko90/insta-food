@@ -39,6 +39,7 @@
   <ItemGroup>
     <Folder Include="Pages\Customer\Cart\" />
     <Folder Include="Pages\Customer\Home\" />
+    <Folder Include="wwwroot\dist\img\menuItems\" />
   </ItemGroup>
 
 </Project>

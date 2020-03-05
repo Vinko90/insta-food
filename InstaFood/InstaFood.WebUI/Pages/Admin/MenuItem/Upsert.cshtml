@@ -1,0 +1,157 @@
+﻿@page
+@model InstaFood.WebUI.Pages.Admin.MenuItem.UpsertModel
+@{
+    ViewData["Title"] = "Edit Menu";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+@section Styles{
+    <link rel="stylesheet" href="~/plugins/summernote/summernote-bs4.css">
+    <link rel="stylesheet" href="~/plugins/sweetalert2/sweetalert2.min.css">
+}
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a asp-area="" asp-page="./Index">Menu</a></li>
+                    <li class="breadcrumb-item active">@(Model.MenuItemObj.MenuItem.Id != 0 ? "Update" : "Create") Menu Item</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-7">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">@(Model.MenuItemObj.MenuItem.Id != 0 ? "Update" : "Create") Menu Item</h3>
+                    </div>
+                    <form role="form" method="post" asp-action="Upsert" enctype="multipart/form-data">
+                        <div class="card-body">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            @if (Model.MenuItemObj.MenuItem.Id != 0)
+                            {
+                                <input type="hidden" asp-for="MenuItemObj.MenuItem.Id" />
+                            }
+                            <div class="form-group">
+                                <label asp-for="MenuItemObj.MenuItem.Name"></label>
+                                <input class="form-control" asp-for="MenuItemObj.MenuItem.Name">
+                                <span class="text-danger" asp-validation-for="MenuItemObj.MenuItem.Name"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="MenuItemObj.MenuItem.Price"></label>
+                                <input class="form-control" asp-for="MenuItemObj.MenuItem.Price">
+                                <span class="text-danger" asp-validation-for="MenuItemObj.MenuItem.Price"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="MenuItemObj.MenuItem.Description"></label>
+                                <textarea class="textarea" placeholder="Enter description..." asp-for="MenuItemObj.MenuItem.Description"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="MenuItemObj.MenuItem.Image"></label>
+                                <div class="input-group">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" name="files" id="uploadBox">
+                                        <label class="custom-file-label" for="uploadBox">Choose file</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="MenuItemObj.MenuItem.CategoryId"></label>
+                                @Html.DropDownListFor(m => m.MenuItemObj.MenuItem.CategoryId,
+                                                           Model.MenuItemObj.CategoryList,
+                                                           "- Please select a Category -",
+                                                           new { @class = "form-control" })
+                                <span class="text-danger" asp-validation-for="MenuItemObj.MenuItem.CategoryId"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="MenuItemObj.MenuItem.FoodTypeId"></label>
+                                @Html.DropDownListFor(m => m.MenuItemObj.MenuItem.FoodTypeId,
+                                                           Model.MenuItemObj.FoodTypeList,
+                                                           "- Please select a Food Type -",
+                                                           new { @class = "form-control" })
+                                <span class="text-danger" asp-validation-for="MenuItemObj.MenuItem.FoodTypeId"></span>
+                            </div>
+                        </div>
+                        <!-- /.card-body -->
+
+                        <div class="card-footer">
+
+                            <a asp-page="./Index" class="btn btn-primary">Back to List</a>
+
+                            @if (Model.MenuItemObj.MenuItem.Id != 0)
+                            {
+                                <button type="submit" class="btn btn-info">Update</button>
+                            }
+                            else
+                            {
+                                <button type="submit" onclick="return ValidateInput()" class="btn btn-success">Create</button>
+                            }
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            @if (Model.MenuItemObj.MenuItem.Id != 0)
+            {
+                <div class="col-md-5">
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">Picture</h3>
+
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                            </div>
+                            <!-- /.card-tools -->
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <img src="@Model.MenuItemObj.MenuItem.Image" width="100%" style="border-radius:5px; border:1px solid #bbb9b9"/>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+</section>
+
+@section Scripts{
+    <script src="~/plugins/summernote/summernote-bs4.min.js"></script>
+    <script src="~/plugins/sweetalert2/sweetalert2.min.js"></script>
+    <script src="~/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+    
+    <script type="text/javascript">
+        $(document).ready(function () {
+            bsCustomFileInput.init();
+        });
+    </script>
+
+    <script>
+        $(function () {
+            // Summernote
+            $('.textarea').summernote()
+        })
+    </script>
+
+    <script>
+        function ValidateInput() {
+            if (document.getElementById("uploadBox").value == "") {
+                Swal.fire('Error', 'Please select an image', 'error')
+                return false;
+            }
+            return true;
+        }
+    </script>
+}
