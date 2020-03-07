@@ -37,6 +37,11 @@ namespace InstaFood.DataAccess
 		public DbSet<ApplicationUser> ApplicationUser { get; set; }
 
 		/// <summary>
+		/// ShoppingCart table
+		/// </summary>
+		public DbSet<ShoppingCart> ShoppingCart { get; set; }
+
+		/// <summary>
 		/// Default costructor
 		/// </summary>
 		/// <param name="options">Database connection options</param>
