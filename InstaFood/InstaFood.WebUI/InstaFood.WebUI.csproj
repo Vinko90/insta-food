@@ -33,6 +33,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\InstaFood.DataAccess\InstaFood.DataAccess.csproj" />
+    <ProjectReference Include="..\InstaFood.Utility\InstaFood.Utility.csproj" />
   </ItemGroup>
 
 

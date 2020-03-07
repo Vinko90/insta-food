@@ -16,4 +16,8 @@
     <DocumentationFile>bin\InstaFood.Utility.xml</DocumentationFile>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.2" />
+  </ItemGroup>
+
 </Project>

@@ -8,6 +8,8 @@ using Microsoft.Extensions.Hosting;
 using InstaFood.DataAccess;
 using InstaFood.DataAccess.Data.Repository.IRepository;
 using InstaFood.DataAccess.Data.Repository;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using InstaFood.Utility;
 
 namespace InstaFood.WebUI
 {
@@ -26,8 +28,11 @@ namespace InstaFood.WebUI
 			services.AddDbContext<ApplicationDbContext>(options =>
 				options.UseSqlServer(
 					Configuration.GetConnectionString("InstaFoodConnectionString")));
-			services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+			services.AddIdentity<IdentityUser, IdentityRole>()
+				.AddDefaultTokenProviders()
 				.AddEntityFrameworkStores<ApplicationDbContext>();
+
+			services.AddSingleton<IEmailSender, EmailSender>();
 
 			services.AddScoped<IUnitOfWork, UnitOfWork>();
 
