@@ -28,6 +28,7 @@ namespace InstaFood.WebUI
 			services.AddDbContext<ApplicationDbContext>(options =>
 				options.UseSqlServer(
 					Configuration.GetConnectionString("InstaFoodConnectionString")));
+
 			services.AddIdentity<IdentityUser, IdentityRole>()
 				.AddDefaultTokenProviders()
 				.AddEntityFrameworkStores<ApplicationDbContext>();
@@ -40,6 +41,16 @@ namespace InstaFood.WebUI
 				.SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_3_0);
 
 			services.AddControllersWithViews().AddRazorRuntimeCompilation();
+
+			services.ConfigureApplicationCookie(options =>
+			{
+
+				options.LoginPath = $"/Identity/Account/Login";
+
+				options.LogoutPath = $"/Identity/Account/Logout";
+
+				options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
+			});
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

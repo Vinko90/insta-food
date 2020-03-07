@@ -1,9 +1,12 @@
 ﻿using InstaFood.DataAccess.Data.Repository.IRepository;
+using InstaFood.Utility;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace InstaFood.WebUI.Pages.Admin.Category
 {
+    [Authorize(Roles = StaticDetails.ManagerRole)]
     public class UpsertModel : PageModel
     {
         private readonly IUnitOfWork _unitOfWork;

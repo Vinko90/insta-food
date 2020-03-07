@@ -1,5 +1,7 @@
 ﻿using InstaFood.DataAccess.Data.Repository.IRepository;
 using InstaFood.Models.ViewModels;
+using InstaFood.Utility;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -8,6 +10,7 @@ using System.IO;
 
 namespace InstaFood.WebUI.Pages.Admin.MenuItem
 {
+    [Authorize(Roles = StaticDetails.ManagerRole)]
     public class UpsertModel : PageModel
     {
         private readonly IUnitOfWork _unitOfWork;

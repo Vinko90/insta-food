@@ -1,4 +1,6 @@
-﻿<aside class="main-sidebar sidebar-dark-primary elevation-4">
+﻿@using InstaFood.Utility;
+
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
     
     <!-- Brand Logo -->
     <a class="brand-link" asp-area="" asp-page="/Index">
@@ -34,61 +36,45 @@
                     </a>
                 </li>
 
-                <li class="nav-item has-treeview">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-user-shield"></i>
-                        <p>
-                            Administration
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a class="nav-link" asp-page="/Admin/Category/Index">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Category</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-page="/Admin/FoodType/Index">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Food Type</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-page="/Admin/MenuItem/Index">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Menu Item</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-page="/Admin/Users/Index">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Users Management</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-
-                <!--
-                    <li class="nav-item">
-                        <a href="../widgets.html" class="nav-link">
-                            <i class="nav-icon fas fa-th"></i>
+                <!-- Administration Menu -->
+                @if (User.IsInRole(StaticDetails.ManagerRole))
+                {
+                    <li class="nav-item has-treeview">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-user-shield"></i>
                             <p>
-                                Widgets
-                                <span class="right badge badge-danger">New</span>
+                                Administration
+                                <i class="right fas fa-angle-left"></i>
                             </p>
                         </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a class="nav-link" asp-page="/Admin/Category/Index">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Category</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-page="/Admin/FoodType/Index">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Food Type</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-page="/Admin/MenuItem/Index">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Menu Item</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-page="/Admin/User/Index">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Users Management</p>
+                                </a>
+                            </li>
+                        </ul>
                     </li>
-
-                    <li class="nav-header">EXAMPLES</li>
-                    <li class="nav-item">
-                        <a href="../calendar.html" class="nav-link">
-                            <i class="nav-icon far fa-calendar-alt"></i>
-                            <p>Calendar</p>
-                        </a>
-                    </li>
-                -->
+                }
 
             </ul>
         </nav>
