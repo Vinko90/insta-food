@@ -98,15 +98,18 @@
                         </div>
                         <!-- /.col -->
                     </div>
+                    <div class="row">
+                        <div class="custom-control custom-radio">
+                            <input type="radio" name="rdUserRole" value="@StaticDetails.KitchenRole" /> @StaticDetails.KitchenRole
+                            <input type="radio" name="rdUserRole" value="@StaticDetails.FrontDeskRole" /> @StaticDetails.FrontDeskRole
+                            <input type="radio" name="rdUserRole" value="@StaticDetails.ManagerRole" /> @StaticDetails.ManagerRole
+                            <input type="radio" name="rdUserRole" value="@StaticDetails.CustomerRole" /> @StaticDetails.CustomerRole
+                        </div>
+                    </div>
                 </form>
 
                 <div class="social-auth-links text-center">
-                    <p>- OR -</p>
-                    <input type="radio" name="rdUserRole" value="@StaticDetails.KitchenRole" /> @StaticDetails.KitchenRole
-                    <input type="radio" name="rdUserRole" value="@StaticDetails.FrontDeskRole" /> @StaticDetails.FrontDeskRole
-                    <input type="radio" name="rdUserRole" value="@StaticDetails.ManagerRole" /> @StaticDetails.ManagerRole
-                    <input type="radio" name="rdUserRole" value="@StaticDetails.CustomerRole" /> @StaticDetails.CustomerRole
-
+                    <p>- OR -</p>      
                     <a href="#" class="btn btn-block btn-info">
                         <i class="fas fa-sign-in-alt mr-2"></i>
                         I already have a membership
