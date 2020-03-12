@@ -34,7 +34,7 @@
                 @{ 
                     var count = HttpContextAccessor.HttpContext.Session.GetInt32(StaticDetails.ShoppingCart);
                 }
-                <a class="nav-link" href="#"><i class="fas fa-shopping-cart"></i>(@count)</a>
+                <a class="nav-link" asp-page="/Customer/Cart/Index"><i class="fas fa-shopping-cart"></i>(@count)</a>
             </li>
         }
         else

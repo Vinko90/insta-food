@@ -1,12 +1,94 @@
-﻿using Microsoft.AspNetCore.Mvc.RazorPages;
+﻿using InstaFood.DataAccess.Data.Repository.IRepository;
+using InstaFood.Models;
+using InstaFood.Models.ViewModels;
+using InstaFood.Utility;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
 
 namespace InstaFood.WebUI.Pages.Customer.Cart
 {
     public class IndexModel : PageModel
     {
+        private readonly IUnitOfWork _unitOfWork;
+
+        public OrderDetailsCartVM OrderDetailsCartVM { get; set; }
+
+        public IndexModel(IUnitOfWork unitOfWork)
+        {
+            _unitOfWork = unitOfWork;
+        }
         public void OnGet()
         {
+            OrderDetailsCartVM = new OrderDetailsCartVM()
+            {
+                OrderHeader = new Models.OrderHeader()
+            };
 
+            OrderDetailsCartVM.OrderHeader.OrderTotal = 0;
+
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+
+            IEnumerable<ShoppingCart> cart = _unitOfWork.ShoppingCart.GetAll(c => c.ApplicationUserId == claim.Value);
+
+            if (cart != null)
+            {
+                OrderDetailsCartVM.ListCart = cart.ToList();
+            }
+
+            foreach(var cartList in OrderDetailsCartVM.ListCart)
+            {
+                cartList.MenuItem = _unitOfWork.MenuItem.GetFirstOrDefault(m => m.Id == cartList.MenuItemId);
+                OrderDetailsCartVM.OrderHeader.OrderTotal += (cartList.MenuItem.Price * cartList.Count);
+            }
+        }
+
+        public IActionResult OnPostPlus(int cartId)
+        {
+            var cart = _unitOfWork.ShoppingCart.GetFirstOrDefault(c => c.Id == cartId);
+            _unitOfWork.ShoppingCart.IncrementCount(cart, 1);
+            _unitOfWork.Save();
+
+            return RedirectToPage("/Customer/Cart/Index");
+        }
+
+        public IActionResult OnPostMinus(int cartId)
+        {
+            var cart = _unitOfWork.ShoppingCart.GetFirstOrDefault(c => c.Id == cartId);
+
+            if (cart.Count == 1)
+            {
+                _unitOfWork.ShoppingCart.Remove(cart);
+                _unitOfWork.Save();
+
+                var cnt = _unitOfWork.ShoppingCart.GetAll(u => u.ApplicationUserId == cart.ApplicationUserId).ToList().Count;
+                
+                HttpContext.Session.SetInt32(StaticDetails.ShoppingCart, cnt);
+            }
+            else
+            {
+                _unitOfWork.ShoppingCart.DecrementCount(cart, 1);
+                _unitOfWork.Save();
+            }
+
+            return RedirectToPage("/Customer/Cart/Index");
+        }
+
+        public IActionResult OnPostRemove(int cartId)
+        {
+            var cart = _unitOfWork.ShoppingCart.GetFirstOrDefault(c => c.Id == cartId);
+            _unitOfWork.ShoppingCart.Remove(cart);
+            _unitOfWork.Save();
+
+            var cnt = _unitOfWork.ShoppingCart.GetAll(u => u.ApplicationUserId == cart.ApplicationUserId).ToList().Count;
+
+            HttpContext.Session.SetInt32(StaticDetails.ShoppingCart, cnt);
+
+            return RedirectToPage("/Customer/Cart/Index");
         }
     }
 }
