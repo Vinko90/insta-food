@@ -30,5 +30,10 @@ namespace InstaFood.Utility
         /// Customer user role name
         /// </summary>
         public const string CustomerRole = "Customer";
+
+        /// <summary>
+        /// Shopping Cart
+        /// </summary>
+        public const string ShoppingCart = "ShoppingCart";
     }
 }

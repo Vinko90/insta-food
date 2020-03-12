@@ -1,4 +1,8 @@
-﻿<nav class="main-header navbar navbar-expand navbar-white navbar-light">
+﻿@using Microsoft.AspNetCore.Http
+@using InstaFood.Utility;
+@inject IHttpContextAccessor HttpContextAccessor
+
+<nav class="main-header navbar navbar-expand navbar-white navbar-light">
 
     <!-- Left navbar links -->
     <ul class="navbar-nav">
@@ -23,7 +27,23 @@
     </form>
 
     <ul class="navbar-nav ml-auto">
-        
+
+        @if (HttpContextAccessor.HttpContext.Session.GetInt32(StaticDetails.ShoppingCart) != null)
+        {
+            <li class="nav-item">
+                @{ 
+                    var count = HttpContextAccessor.HttpContext.Session.GetInt32(StaticDetails.ShoppingCart);
+                }
+                <a class="nav-link" href="#"><i class="fas fa-shopping-cart"></i>(@count)</a>
+            </li>
+        }
+        else
+        {
+            <li class="nav-item">
+                <a class="nav-link" href="#"><i class="fas fa-shopping-cart"></i>(0)</a>
+            </li>
+        }
+
         <partial name="_LoginPartial" />
     </ul>
 
