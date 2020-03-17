@@ -1,0 +1,196 @@
+﻿@page
+@model InstaFood.WebUI.Pages.Customer.Cart.SummaryModel
+@{
+    ViewData["Title"] = "Order Summary";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+@section Styles{
+    <link rel="stylesheet" href="~/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+    <link rel="stylesheet" href="~/plugins/sweetalert2/sweetalert2.min.css">
+}
+
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <form method="post">
+
+                <div class="card card-outline card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            <i class="fas fa-shopping-cart"></i>&nbsp; Order Summary
+                        </h3>
+                        <div class="card-tools">
+                            <a class="btn-sm btn-block btn-outline-primary" asp-page="Index">Back to Cart</a>
+                        </div>
+                    </div>
+                    <div class="card-body">
+
+                        @if (Model.OrderDetailsCartVM.ListCart.Count > 0)
+                        {
+                            <input asp-for="@Model.OrderDetailsCartVM.ListCart[0].ApplicationUserId" hidden />
+                            <div class="row">
+                                <div class="col-12 col-lg-6 pb-4">
+                                    <div class="row">
+                                        <h4 class="d-flex justify-content-between align-items-center mb-3">
+                                            <span class="text-info">PickUp Details:</span>
+                                        </h4>
+                                    </div>
+                                    <div class="row my-1">
+                                        <div class="col-3">
+                                            <label>Name</label>
+                                        </div>
+                                        <div class="col-9">
+                                            <input id="txtName" asp-for="@Model.OrderDetailsCartVM.OrderHeader.PickUpName" type="text" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="row my-1">
+                                        <div class="col-3">
+                                            <label>Phone</label>
+                                        </div>
+                                        <div class="col-9">
+                                            <input id="txtPhone" asp-for="@Model.OrderDetailsCartVM.OrderHeader.PhoneNumber" type="text" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="row my-1">
+                                        <div class="col-3">
+                                            <label>Date</label>
+                                        </div>
+                                        <div class="col-9">
+                                            <input id="datepicker" value="" asp-for="@Model.OrderDetailsCartVM.OrderHeader.PickUpDate" type="text" class="form-control float-right" data-toggle="datetimepicker" data-target="#datepicker"/>
+                                        </div>
+                                    </div>
+                                    <div class="row my-1">
+                                        <div class="col-3">
+                                            <label>Time</label>
+                                        </div>
+                                        <div class="col-9">
+                                            <input id="timepicker" value="" asp-for="@Model.OrderDetailsCartVM.OrderHeader.PickUpTime" type="text" class="form-control float-right" data-toggle="datetimepicker" data-target="#timepicker" />
+                                        </div>
+                                    </div>
+                                    <div class="row my-1">
+                                        <div class="col-3">
+                                            <label>Comments</label>
+                                        </div>
+                                        <div class="col-9">
+                                            <textarea asp-for="@Model.OrderDetailsCartVM.OrderHeader.Comments" style="height:100px;" class="form-control"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-lg-5 offset-lg-1">
+                                    <h4 class="d-flex justify-content-between align-items-center mb-3">
+                                        <span class="text-info">Order Summary:</span>
+                                    </h4>
+                                    <ul class="list-group mb-3">
+                                        @{ var total = 0.0;}
+                                        @foreach (var items in Model.OrderDetailsCartVM.ListCart)
+                                        {
+                                            <li class="list-group-item d-flex justify-content-between">
+                                                <div>
+                                                    <h6 class="my-0">@items.MenuItem.Name</h6>
+                                                    <small class="text-muted">Quantity: @items.Count</small>
+                                                </div>
+                                                <span class="text-muted">$@(items.MenuItem.Price * items.Count)</span>
+                                                @{ total += (items.MenuItem.Price * items.Count);}
+                                            </li>
+                                        }
+                                        <li class="list-group-item d-flex justify-content-between bg-light">
+                                            <small class="text-info">Total (USD)</small>
+                                            <strong class="text-info">@total.ToString("0.00")</strong>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <h5>You have no items in the shopping cart!</h5>
+                        }
+
+
+
+
+                    </div>
+                    <div class="card-footer">
+                        @if (Model.OrderDetailsCartVM.ListCart.Count > 0)
+                        {
+                            <div class="col-12 col-lg-4 offset-lg-8 col-md-6 offset-md-6">
+                                <a id="placeOrder" class="btn btn-block btn-success">Place Order</a>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</section>
+
+@section Scripts{
+
+    <script src="~/plugins/moment/moment.min.js"></script>
+    <script src="~/plugins/daterangepicker/daterangepicker.js"></script>
+    <script src="~/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+    <script src="~/plugins/sweetalert2/sweetalert2.min.js"></script>
+
+    <script type="text/javascript">
+
+        $(function () {
+            $('#datepicker').datetimepicker({
+                format: 'L',
+                minDate: "now",
+                maxDate: moment().add(1, 'w')
+            });
+
+            $('#timepicker').datetimepicker({
+                format: 'LT',
+                stepping: 30,
+                enabledHours: [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
+            });
+        });
+
+        document.getElementById("placeOrder").onclick = function () {
+
+            var name = document.getElementById("txtName").value;
+            var phone = document.getElementById("txtPhone").value;
+            var dt = document.getElementById("datepicker").value;
+            var time = document.getElementById("timepicker").value;
+            
+            if (name.toString() == '') {
+                Swal.fire('Error', 'Please enter pickup Name', 'error')
+                return false;
+            }
+
+            if (phone.toString() == '') {
+                Swal.fire('Error', 'Please enter pickup Phone Number', 'error')
+                return false;
+            }
+
+            if (dt.toString() == '') {
+                Swal.fire('Error', 'Please select pickup Date', 'error')
+                return false;
+            }
+            
+            if (time.toString() == '') {
+                Swal.fire('Error', 'Please select pickup Time', 'error')
+                return false;
+            }          
+        }
+
+    </script>
+}
