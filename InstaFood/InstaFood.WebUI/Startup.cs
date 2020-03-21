@@ -53,6 +53,12 @@ namespace InstaFood.WebUI
 
 			services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
+			services.AddAuthentication().AddFacebook(facebookOptions =>
+			{
+				facebookOptions.AppId = Configuration.GetSection("FacebookApp")["AppId"];
+				facebookOptions.AppSecret = Configuration.GetSection("FacebookApp")["AppSecret"];
+			});
+
 			services.ConfigureApplicationCookie(options =>
 			{
 
