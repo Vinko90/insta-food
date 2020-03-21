@@ -1,5 +1,7 @@
 ﻿@page
 @model InstaFood.WebUI.Pages.Customer.Cart.SummaryModel
+@using Microsoft.Extensions.Options
+@inject IOptions<InstaFood.Utility.StripeSettings> Stripe
 @{
     ViewData["Title"] = "Order Summary";
     Layout = "~/Pages/Shared/_Layout.cshtml";
@@ -128,10 +130,25 @@
                     </div>
                     <div class="card-footer">
                         @if (Model.OrderDetailsCartVM.ListCart.Count > 0)
-                        {
-                            <div class="col-12 col-lg-4 offset-lg-8 col-md-6 offset-md-6">
-                                <a id="placeOrder" class="btn btn-block btn-success">Place Order</a>
-                            </div>
+                        { 
+                            var OrderTotalForStrip = Model.OrderDetailsCartVM.OrderHeader.OrderTotal * 100;
+                           
+                           
+                        <div class="col-12 col-lg-4 offset-lg-8 col-md-6 offset-md-6">
+
+                            <script src="https://checkout.stripe.com/checkout.js"
+                                    class="stripe-button"
+                                    data-key="@Stripe.Value.PublicKey"
+                                    data-amount="@OrderTotalForStrip"
+                                    data-template-name="Insta Food"
+                                    data-description="Your order will be processed soon!"
+                                    data-locale="auto"
+                                    data-allow-remember-me="false"
+                                    data-image="https://stripe.com/img/documentation/checkout/marketplace.png">
+                            </script>
+
+                            <button type="submit" id="btnPlaceOrder" onclick="return validateInput()" class="btn btn-block btn-success">Place Order</button>                    
+                        </div>
                         }
                     </div>
                 </div>
@@ -164,13 +181,15 @@
             });
         });
 
-        document.getElementById("placeOrder").onclick = function () {
+        document.getElementsByClassName("stripe-button-el")[0].style.display = 'none';
+
+        function validateInput() {
 
             var name = document.getElementById("txtName").value;
             var phone = document.getElementById("txtPhone").value;
             var dt = document.getElementById("datepicker").value;
             var time = document.getElementById("timepicker").value;
-            
+
             if (name.toString() == '') {
                 Swal.fire('Error', 'Please enter pickup Name', 'error')
                 return false;
@@ -185,12 +204,14 @@
                 Swal.fire('Error', 'Please select pickup Date', 'error')
                 return false;
             }
-            
+
             if (time.toString() == '') {
                 Swal.fire('Error', 'Please select pickup Time', 'error')
                 return false;
-            }          
+            }
         }
+
+    
 
     </script>
 }

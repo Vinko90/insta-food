@@ -147,5 +147,14 @@ namespace InstaFood.DataAccess.Data.Repository
         {
             dbSet.Remove(entity);
         }
+
+        /// <summary>
+        /// Remove a collection of objects from the database context
+        /// </summary>
+        /// <param name="entity">The list of entity to be removed</param>
+        public void RemoveRange(IEnumerable<T> entity)
+        {
+            dbSet.RemoveRange(entity);
+        }
     }
 }

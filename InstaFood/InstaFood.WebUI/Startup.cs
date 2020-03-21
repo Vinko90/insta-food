@@ -11,6 +11,7 @@ using InstaFood.DataAccess.Data.Repository;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using InstaFood.Utility;
 using System;
+using Stripe;
 
 namespace InstaFood.WebUI
 {
@@ -45,7 +46,7 @@ namespace InstaFood.WebUI
 				options.Cookie.IsEssential = true;
 			});
 
-
+			services.Configure<StripeSettings>(Configuration.GetSection("Stripe"));
 
 			services.AddMvc(options => options.EnableEndpointRouting = false)
 				.SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_3_0);
@@ -86,6 +87,8 @@ namespace InstaFood.WebUI
 			app.UseAuthorization();
 
 			app.UseMvc();
+
+			StripeConfiguration.ApiKey = Configuration.GetSection("Stripe")["SecretKey"];
 		}
 	}
 }

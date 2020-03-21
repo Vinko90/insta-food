@@ -71,5 +71,11 @@ namespace InstaFood.DataAccess.Data.Repository.IRepository
         /// </summary>
         /// <param name="entity">Entity to be removed</param>
         void Remove(T entity);
+
+        /// <summary>
+        /// Remove a collection of objects from the database context
+        /// </summary>
+        /// <param name="entity">The list of entity to be removed</param>
+        void RemoveRange(IEnumerable<T> entity);
     }
 }
