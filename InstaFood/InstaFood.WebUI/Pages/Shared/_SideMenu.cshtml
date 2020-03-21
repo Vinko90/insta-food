@@ -76,6 +76,28 @@
                     </li>
                 }
 
+                <!-- Order Management Menu -->
+                @if (User.IsInRole(StaticDetails.ManagerRole) || User.IsInRole(StaticDetails.KitchenRole))
+                {
+                    <li class="nav-item">
+                        <a class="nav-link" asp-page="/Admin/Order/ManageOrder">
+                            <i class="nav-icon far fa-clipboard"></i>
+                            <p>Manage Order</p>
+                        </a>
+                    </li>
+                }
+
+                <!-- Order Pickup Menu -->
+                @if (User.IsInRole(StaticDetails.ManagerRole) || User.IsInRole(StaticDetails.FrontDeskRole))
+                {
+                    <li class="nav-item">
+                        <a class="nav-link" asp-page="/Admin/Order/OrderList">
+                            <i class="nav-icon fas fa-tasks"></i>
+                            <p>Order Pickup</p>
+                        </a>
+                    </li>
+                }
+
             </ul>
         </nav>
         <!-- /.sidebar-menu -->
