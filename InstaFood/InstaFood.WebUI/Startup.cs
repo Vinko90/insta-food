@@ -59,6 +59,12 @@ namespace InstaFood.WebUI
 				facebookOptions.AppSecret = Configuration.GetSection("FacebookApp")["AppSecret"];
 			});
 
+			services.AddAuthentication().AddMicrosoftAccount(microsoftOptions =>
+			{
+				microsoftOptions.ClientId = Configuration.GetSection("MicrosoftApp")["ClientId"];
+				microsoftOptions.ClientSecret = Configuration.GetSection("MicrosoftApp")["SecretId"];
+			});
+
 			services.ConfigureApplicationCookie(options =>
 			{
 

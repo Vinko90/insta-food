@@ -17,6 +17,10 @@ The application use user secrets to manage the connection with the database, pay
   "FacebookApp": {
     "AppId": "KEY",
     "AppSecret": "KEY"
+  },
+  "MicrosoftApp": {
+    "ClientId": "KEY",
+    "SecretId": "KEY"
   }
 }
 ```
