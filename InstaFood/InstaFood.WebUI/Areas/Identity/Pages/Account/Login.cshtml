@@ -66,12 +66,20 @@
 
                 <div class="social-auth-links text-center mb-3">
                     <p>- OR -</p>
-                    <a href="#" class="btn btn-block btn-primary">
-                        <i class="fab fa-facebook mr-2"></i> Sign in using Facebook
-                    </a>
-                    <a href="#" class="btn btn-block btn-danger">
-                        <i class="fab fa-google-plus mr-2"></i> Sign in using Google+
-                    </a>
+            
+                    <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
+                        @foreach (var provider in Model.ExternalLogins)
+                        {
+                            @if (provider.Name.ToLower().Contains("facebook"))
+                            {
+                                <button type="submit" class="btn btn-block btn-primary" name="provider" value="@provider.Name" title="Sign in using your facebook account"><i class="fab fa-facebook mr-2"></i> Sign In with @provider.DisplayName</button>
+                            }
+                            @if (provider.Name.ToLower().Contains("microsoft"))
+                            {
+                                <button type="submit" class="btn btn-block btn-danger" name="provider" value="@provider.Name" title="Sign in using your microsoft account"><i class="fab fa-google-plus mr-2"></i> Sign In with @provider.DisplayName</button>
+                            }
+                        }                 
+                    </form>
                 </div>
                 <!-- /.social-auth-links -->
 

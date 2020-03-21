@@ -3,7 +3,7 @@ ASP .NET Core v3.1 Food delivery system. The frontend is created using AdminLTE-
 
 ## Secret
 
-The application use user secrets to manage the connection with the database and payment system with Stripe. The User secret look like the following: 
+The application use user secrets to manage the connection with the database, payment system with Stripe and Single Sign On services. The User secret look like the following: 
 
 ```JSON
 {
@@ -13,6 +13,10 @@ The application use user secrets to manage the connection with the database and 
   "Stripe": {
     "PublicKey": "KEY",
     "SecretKey": "KEY"
+  },
+  "FacebookApp": {
+    "AppId": "KEY",
+    "AppSecret": "KEY"
   }
 }
 ```

@@ -1,6 +1,5 @@
 ﻿@page
-@model RegisterModel
-@using InstaFood.Utility
+@model ExternalLoginModel
 @{
     ViewData["Title"] = "InstaFood - Register";
 }
@@ -21,14 +20,20 @@
 <body class="hold-transition register-page">
     <div class="register-box">
         <div class="register-logo">
-            <a asp-page="~/Index"><img src="~/dist/img/logo_transparent.png" alt="InstaFood logo" style="width:428px;height:428px;text-align:center;"/></a>
+            <a asp-page="~/Index"><img src="~/dist/img/logo_transparent.png" alt="InstaFood logo" style="width:428px;height:428px;text-align:center;" /></a>
         </div>
 
         <div class="card">
             <div class="card-body register-card-body">
-                <p class="login-box-msg">Register a new membership</p>
+                <p class="login-box-msg">
+                    You've successfully authenticated with <strong>@Model.LoginProvider</strong>.
+                    Please enter all the information below and click the Register button to finish
+                    logging in.
+                </p>
 
-                <form method="post" asp-route-returnUrl="@Model.ReturnUrl">
+                <form asp-page-handler="Confirmation" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+
                     <div class="input-group mb-3">
                         <input type="text" class="form-control" placeholder="First Name" asp-for="Input.FirstName">
                         <span asp-validation-for="Input.FirstName" class="text-danger"></span>
@@ -65,24 +70,6 @@
                             </div>
                         </div>
                     </div>
-                    <div class="input-group mb-3">
-                        <input type="password" class="form-control" placeholder="Password" asp-for="Input.Password">
-                        <span asp-validation-for="Input.Password" class="text-danger"></span>
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                                <span class="fas fa-lock"></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="input-group mb-3">
-                        <input type="password" class="form-control" placeholder="Retype password" asp-for="Input.ConfirmPassword">
-                        <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                                <span class="fas fa-lock"></span>
-                            </div>
-                        </div>
-                    </div>
                     <div class="row">
                         <div class="col-8">
                             <div class="icheck-primary">
@@ -92,45 +79,13 @@
                                 </label>
                             </div>
                         </div>
-                        <!-- /.col -->
                         <div class="col-4">
                             <button type="submit" class="btn btn-primary btn-block">Register</button>
                         </div>
-                        <!-- /.col -->
-                    </div>
-                    <div class="row">
-                        <div class="custom-control custom-radio">
-                            <input type="radio" name="rdUserRole" value="@StaticDetails.KitchenRole" /> @StaticDetails.KitchenRole
-                            <input type="radio" name="rdUserRole" value="@StaticDetails.FrontDeskRole" /> @StaticDetails.FrontDeskRole
-                            <input type="radio" name="rdUserRole" value="@StaticDetails.ManagerRole" /> @StaticDetails.ManagerRole
-                            <input type="radio" name="rdUserRole" value="@StaticDetails.CustomerRole" /> @StaticDetails.CustomerRole
-                        </div>
                     </div>
                 </form>
-
-                <div class="social-auth-links text-center mb-3">
-                    <p>- OR -</p>
-
-                    <a asp-page="Login" class="btn btn-block btn-info" style="margin-bottom: 5px;">
-                        <i class="fas fa-sign-in-alt mr-2"></i> I already have a membership
-                    </a>
-
-                    <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
-                        @foreach (var provider in Model.ExternalLogins)
-                        {
-                            @if (provider.Name.ToLower().Contains("facebook"))
-                            {
-                                <button type="submit" class="btn btn-block btn-primary" name="provider" value="@provider.Name" title="Sign up using your facebook account"><i class="fab fa-facebook mr-2"></i> Sign up with @provider.DisplayName</button>
-                            }
-                            @if (provider.Name.ToLower().Contains("microsoft"))
-                            {
-                                <button type="submit" class="btn btn-block btn-danger" name="provider" value="@provider.Name" title="Sign up using your microsoft account"><i class="fab fa-google-plus mr-2"></i> Sign up with @provider.DisplayName</button>
-                            }
-                        }
-                    </form>
-                </div>
-
-             </div>
+                
+            </div>
             <!-- /.form-box -->
         </div><!-- /.card -->
     </div>
