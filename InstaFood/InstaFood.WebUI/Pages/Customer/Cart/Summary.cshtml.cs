@@ -94,6 +94,8 @@ namespace InstaFood.WebUI.Pages.Customer.Cart
                 _unitOfWork.OrderDetails.Add(orderDetails);
             }
 
+            OrderDetailsCartVM.OrderHeader.OrderTotal = Convert.ToDouble(String.Format("{0:.##}", OrderDetailsCartVM.OrderHeader.OrderTotal));
+
             _unitOfWork.ShoppingCart.RemoveRange(OrderDetailsCartVM.ListCart);
 
             HttpContext.Session.SetInt32(StaticDetails.ShoppingCart, 0);

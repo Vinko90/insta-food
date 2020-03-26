@@ -1,0 +1,116 @@
+﻿@page
+@using InstaFood.Utility;
+@model InstaFood.WebUI.Pages.Admin.Order.OrderDetailsModel
+@{
+    ViewData["Title"] = "Order Details";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Order Details</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a asp-area="" asp-page="/Index">Home</a></li>
+                    <li class="breadcrumb-item active">Order Details</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="content">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card">
+                    <div class="card-header">
+                 
+                        <div class="card-tools">
+                            <a asp-page="OrderList" class="btn btn-block btn-primary"> Back to Orders</a>
+                        </div>
+                    </div>
+                    <!-- /.card-header -->
+
+                    <div class="card-body">
+                        <form method="post">
+                            <div class="row pt-2">
+
+                                <div class="col-lg-8 col-12" style="border-right:1px solid #bbb9b9">
+                                    <input type="hidden" asp-for="OrderDetailsVM.OrderHeader.Id" />
+                                    <div class="form-group">
+                                        <label>Name</label>
+                                        <input disabled type="text" class="form-control" id="pickUpName" asp-for="OrderDetailsVM.OrderHeader.PickUpName">
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="OrderDetailsVM.OrderHeader.ApplicationUser.Email"></label>
+                                        <input disabled type="text" class="form-control" id="userEmail" asp-for="OrderDetailsVM.OrderHeader.ApplicationUser.Email">
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="OrderDetailsVM.OrderHeader.PhoneNumber"></label>
+                                        <input disabled type="text" class="form-control" id="userPhoneNumber" asp-for="OrderDetailsVM.OrderHeader.PhoneNumber">
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="OrderDetailsVM.OrderHeader.OrderTotal"></label>
+                                        <input disabled type="text" class="form-control" id="orderTotal" asp-for="OrderDetailsVM.OrderHeader.OrderTotal">
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="OrderDetailsVM.OrderHeader.OrderDate"></label>
+                                        <input disabled type="text" class="form-control" id="orderDate" value="@Model.OrderDetailsVM.OrderHeader.PickUpTime.ToShortDateString() @Model.OrderDetailsVM.OrderHeader.PickUpTime.ToShortTimeString()">
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="OrderDetailsVM.OrderHeader.Comments"></label>
+                                        <input disabled type="text" class="form-control" id="orderTotal" asp-for="OrderDetailsVM.OrderHeader.Comments">
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4 col-12">
+                                    <h4 class="d-flex justify-content-between align-content-center mb-3">
+                                        <span class="text-muted">Order ID: </span>
+                                        <span class="badge badge-secondary badge-pill">@Model.OrderDetailsVM.OrderHeader.Id</span>
+                                    </h4>
+                                    <ul class="list-group mb-3">
+                                        @foreach (var details in Model.OrderDetailsVM.OrderDetails)
+                                        {
+                                            <li class="list-group-item d-flex justify-content-between">
+                                                <div>
+                                                    <h6 class="my-0">@details.Name</h6>
+                                                    <small class="text-muted">Quantity : @details.Count</small>
+                                                </div>
+                                                <span class="text-muted">@(details.Price * details.Count)</span>
+                                            </li>
+                                        }
+
+                                        <li class="list-group-item d-flex justify-content-between bg-light">
+                                            <span class="text-info"> Total (USD)</span>
+                                            <strong class="text-info">@Model.OrderDetailsVM.OrderHeader.OrderTotal</strong>
+                                        </li>
+
+                                    </ul>
+
+                                    @if (Model.OrderDetailsVM.OrderHeader.Status.Equals(StaticDetails.StatusReady) && (User.IsInRole(StaticDetails.FrontDeskRole)))
+                                    {
+                                        <button type="submit" class="btn btn-success form-control"><i class="far fa-thumbs-up"></i> Confirm Pickup</button>
+                                    }
+                                    else
+                                    {
+                                        <button type="submit" disabled class="btn btn-info form-control">@Model.OrderDetailsVM.OrderHeader.Status</button>
+                                    }
+
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+
+            </div>
+        </div>
+    </div>
+</section>
+

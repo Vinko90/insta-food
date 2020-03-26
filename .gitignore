@@ -350,4 +350,4 @@ MigrationBackup/
 .ionide/
 
 # MenuItem Pictures
-InstaFood/InstaFood.WebUI/wwwroot/dist/img/menuItems/*.jpg
+InstaFood/InstaFood.WebUI/wwwroot/dist/img/menuItems/*
