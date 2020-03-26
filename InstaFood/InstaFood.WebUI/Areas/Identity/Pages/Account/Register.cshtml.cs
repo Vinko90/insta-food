@@ -98,15 +98,6 @@ namespace InstaFood.WebUI.Areas.Identity.Pages.Account
 
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
-                //This part will only be executed once, then the roles will be created.
-                if (!await _roleManager.RoleExistsAsync(StaticDetails.ManagerRole))
-                {
-                    _roleManager.CreateAsync(new IdentityRole(StaticDetails.ManagerRole)).GetAwaiter().GetResult();
-                    _roleManager.CreateAsync(new IdentityRole(StaticDetails.FrontDeskRole)).GetAwaiter().GetResult();
-                    _roleManager.CreateAsync(new IdentityRole(StaticDetails.KitchenRole)).GetAwaiter().GetResult();
-                    _roleManager.CreateAsync(new IdentityRole(StaticDetails.CustomerRole)).GetAwaiter().GetResult();
-                }
-
                 if (result.Succeeded)
                 {
                     _ = (userRole switch

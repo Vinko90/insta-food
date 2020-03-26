@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using InstaFood.Utility;
 using System;
 using Stripe;
+using InstaFood.DataAccess.Data.Initializer;
 
 namespace InstaFood.WebUI
 {
@@ -38,6 +39,7 @@ namespace InstaFood.WebUI
 			services.AddSingleton<IEmailSender, EmailSender>();
 
 			services.AddScoped<IUnitOfWork, UnitOfWork>();
+			services.AddScoped<IDbInitializer, DbInitializer>();
 
 			services.AddSession(options =>
 			{
@@ -78,7 +80,7 @@ namespace InstaFood.WebUI
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+		public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IDbInitializer dbInitializer)
 		{
 			if (env.IsDevelopment())
 			{
@@ -95,6 +97,8 @@ namespace InstaFood.WebUI
 			app.UseHttpsRedirection();
 			app.UseStaticFiles();
 			app.UseSession();
+
+			dbInitializer.Initialize();
 
 			app.UseRouting();
 

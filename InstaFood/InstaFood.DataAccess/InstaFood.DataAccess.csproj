@@ -25,11 +25,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Data\Initializer\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\InstaFood.Models\InstaFood.Models.csproj" />
+    <ProjectReference Include="..\InstaFood.Utility\InstaFood.Utility.csproj" />
   </ItemGroup>
 
 </Project>
