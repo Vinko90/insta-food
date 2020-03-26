@@ -36,6 +36,17 @@
                     </a>
                 </li>
 
+                <!-- Customer Order History -->
+                @if (User.IsInRole(StaticDetails.CustomerRole))
+                {
+                    <li class="nav-item">
+                        <a class="nav-link" asp-page="/Admin/Order/OrderList">
+                            <i class="nav-icon fas fa-history"></i>
+                            <p>Order History</p>
+                        </a>
+                    </li>
+                }
+
                 <!-- Administration Menu -->
                 @if (User.IsInRole(StaticDetails.ManagerRole))
                 {

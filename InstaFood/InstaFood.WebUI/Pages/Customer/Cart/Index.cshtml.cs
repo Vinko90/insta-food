@@ -25,7 +25,8 @@ namespace InstaFood.WebUI.Pages.Customer.Cart
         {
             OrderDetailsCartVM = new OrderDetailsCartVM()
             {
-                OrderHeader = new Models.OrderHeader()
+                OrderHeader = new Models.OrderHeader(),
+                ListCart = new List<ShoppingCart>()
             };
 
             OrderDetailsCartVM.OrderHeader.OrderTotal = 0;
@@ -33,18 +34,21 @@ namespace InstaFood.WebUI.Pages.Customer.Cart
             var claimsIdentity = (ClaimsIdentity)User.Identity;
             var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
 
-            IEnumerable<ShoppingCart> cart = _unitOfWork.ShoppingCart.GetAll(c => c.ApplicationUserId == claim.Value);
-
-            if (cart != null)
+            if (claim != null)
             {
-                OrderDetailsCartVM.ListCart = cart.ToList();
-            }
+                IEnumerable<ShoppingCart> cart = _unitOfWork.ShoppingCart.GetAll(c => c.ApplicationUserId == claim.Value);
 
-            foreach(var cartList in OrderDetailsCartVM.ListCart)
-            {
-                cartList.MenuItem = _unitOfWork.MenuItem.GetFirstOrDefault(m => m.Id == cartList.MenuItemId);
-                OrderDetailsCartVM.OrderHeader.OrderTotal += (cartList.MenuItem.Price * cartList.Count);
-            }
+                if (cart != null)
+                {
+                    OrderDetailsCartVM.ListCart = cart.ToList();
+                }
+
+                foreach (var cartList in OrderDetailsCartVM.ListCart)
+                {
+                    cartList.MenuItem = _unitOfWork.MenuItem.GetFirstOrDefault(m => m.Id == cartList.MenuItemId);
+                    OrderDetailsCartVM.OrderHeader.OrderTotal += (cartList.MenuItem.Price * cartList.Count);
+                }
+            }           
         }
 
         public IActionResult OnPostPlus(int cartId)

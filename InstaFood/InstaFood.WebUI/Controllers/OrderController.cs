@@ -7,6 +7,7 @@ using InstaFood.DataAccess.Data.Repository.IRepository;
 using InstaFood.Models;
 using InstaFood.Models.ViewModels;
 using InstaFood.Utility;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -26,6 +27,7 @@ namespace InstaFood.WebUI.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public IActionResult Get(string status = null)
         {
             List<OrderDetailsVM> orderListVM = new List<OrderDetailsVM>();
