@@ -1,4 +1,5 @@
 ﻿using InstaFood.DataAccess.Data.Repository.IRepository;
+using InstaFood.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InstaFood.WebUI.Controllers
@@ -18,6 +19,7 @@ namespace InstaFood.WebUI.Controllers
         public IActionResult Get()
         {
             return Json(new { data = _unitOfWork.Category.GetAll() });
+            //return Json(new { data = _unitOfWork.SP_Call.ReturnList<Category>("usp_GetAllCategory", null) });
         }
 
         [HttpDelete("{id}")]

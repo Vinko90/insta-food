@@ -30,6 +30,8 @@ namespace InstaFood.DataAccess.Data.Repository
 
         public IOrderDetailsRepository OrderDetails { get; private set; }
 
+        public ISP_Call SP_Call { get; private set; }
+
         /// <summary>
         /// Constructor, initialize all the repository and attach them database context
         /// </summary>
@@ -44,6 +46,7 @@ namespace InstaFood.DataAccess.Data.Repository
             ShoppingCart = new ShoppingCartRepository(_db);
             OrderHeader = new OrderHeaderRepository(_db);
             OrderDetails = new OrderDetailsRepository(_db);
+            SP_Call = new SP_Call(_db);
         }
 
         /// <summary>

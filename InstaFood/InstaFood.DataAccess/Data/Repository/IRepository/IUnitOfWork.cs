@@ -50,6 +50,11 @@ namespace InstaFood.DataAccess.Data.Repository.IRepository
         IOrderDetailsRepository OrderDetails { get; }
 
         /// <summary>
+        /// Store Procedure
+        /// </summary>
+        ISP_Call SP_Call { get; }
+
+        /// <summary>
         /// Save changes to database context
         /// </summary>
         void Save();
